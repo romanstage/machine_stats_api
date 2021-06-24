@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from stats.models import CPU_usage
+from stats.models import Stats
+from .services import convert_str_to_datetime, convert_datetime_to_str
 
-class CPU_usageSerializer(serializers.ModelSerializer):
-    # created = serializers.ReadOnlyField()           #note we should not be able to change it
-    # datecompleted = serializers.ReadOnlyField()     #note we should not be able to change it
+class StatsSerializer(serializers.ModelSerializer):
+    time = serializers.DateTimeField(format="%m:%d:%H:%M:%S", required=False, read_only=True)
 
     class Meta:
-        model = CPU_usage
-        fields = ['id','time','usage',]
+        model = Stats
+        exclude = ('id', )
